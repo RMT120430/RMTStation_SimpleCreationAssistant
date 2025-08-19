@@ -19,6 +19,7 @@
 
 ## 🔹使用
 
+https://rmt120430.github.io/RMTStation_SimpleCreationAssistant/
 直接點開連結，就可以開始使用了！
 
 
@@ -48,4 +49,5 @@
 2025/08/20_新增更多觸發模板，css最終調整<br>
 2025/08/19_調整分詞器，更趨近真實<br>
 2025/08/18_v1初版完成
+
 
