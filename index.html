@@ -1,0 +1,1792 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚂RMT Station▪️Simple Creation Assistant</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'MS Sans Serif', 'Microsoft Sans Serif', sans-serif;
+            background: #56858A;
+            min-height: 100vh;
+            color: #132234;
+            font-size: 11px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 8px;
+        }
+
+        .header {
+            border: 2px outset #F7E0C3;
+            background: #E5D0BB;
+            text-align: center;
+            margin-bottom: 8px;
+            color: #132234;
+            height: 30px;
+        }
+
+        .header h1 {
+            font-size: 18px;
+            margin-bottom: 4px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .header h2 {
+            font-size: 11px;
+            margin-top: 29px;
+            margin-right: 5px;
+            margin-bottom: 18px;
+            font-weight: normal;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        /* 全域狀態顯示區域 */
+        .global-status {
+            margin-top: 20px;
+            background: #FCEAD1;
+            color: #1F3D5D;
+            padding: 4px 8px;
+            font-size: 11px;
+            margin-bottom: 18px;
+            border: 1px inset #FCEAD1;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* 頁面導覽器樣式 - 改進響應式設計 */
+        .navigation {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            gap: 4px;
+            min-height: 30px;
+        }
+
+        .nav-btn {
+            background: #F7E0C3;
+            color: #132234;
+            border: 2px outset #F7E0C3;
+            padding: 4px 8px;
+            font-size: 11px;
+            font-weight: normal;
+            font-family: 'MS Sans Serif', 'Microsoft Sans Serif', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            min-width: 80px;
+            justify-content: center;
+            flex: 0 0 auto;
+        }
+
+        .nav-btn:hover {
+            background: #68AAB2;
+            border-color: #68AAB2;
+        }
+
+        .nav-btn:active {
+            border: 2px inset #F7E0C3;
+        }
+
+        .nav-btn.active {
+            background: #1F3D5D;
+            color: #F7E0C3;
+            border: 2px inset #F7E0C3;
+        }
+
+        .nav-icon {
+            width: 12px;
+            height: 12px;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .panel {
+            margin-top: 8px;
+            background: #F7E0C3;
+            border: 2px outset #F7E0C3;
+            padding: 8px;
+            box-shadow: 2px 2px 1px #132234;
+        }
+
+        .panel h2 {
+            color: #132234;
+            margin-bottom: 8px;
+            font-size: 11px;
+            font-weight: bold;
+            background: #1F3D5D;
+            color: #F7E0C3;
+            padding: 2px 4px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .panel-icon {
+            width: 12px;
+            height: 12px;
+        }
+
+        .template-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 4px;
+            margin-bottom: 8px;
+        }
+
+        .template-btn {
+            background: #F7E0C3;
+            color: #132234;
+            border: 2px outset #F7E0C3;
+            padding: 4px 8px;
+            font-size: 11px;
+            font-family: 'MS Sans Serif', 'Microsoft Sans Serif', sans-serif;
+            gap: 4px;
+            margin-top: 4px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .template-btn:hover {
+            background: #68AAB2;
+            border-color: #68AAB2;
+        }
+
+        .template-btn:active {
+            border: 2px inset #F7E0C3;
+        }
+
+        .quick-btn {
+            background: #F7E0C3;
+            color: #132234;
+            border: 2px outset #F7E0C3;
+            padding: 2px 6px;
+            font-size: 11px;
+            margin: 2px;
+            font-family: 'MS Sans Serif', 'Microsoft Sans Serif', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .quick-btn:hover {
+            background: #68AAB2;
+            border-color: #68AAB2;
+        }
+
+        .quick-btn:active {
+            border: 2px inset #F7E0C3;
+        }
+
+        .input-group {
+            margin-bottom: 8px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 2px;
+            font-weight: normal;
+            color: #132234;
+            font-size: 11px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 2px;
+            border: 2px inset #E5D0BB;
+            background: #E5D0BB;
+            color: #132234;
+            font-size: 11px;
+            font-family: 'MS Sans Serif', 'Microsoft Sans Serif', sans-serif;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: 1px dotted #132234;
+        }
+
+        textarea {
+            min-height: 60px;
+            resize: vertical;
+        }
+
+        .output-area {
+            grid-column: 1 / -1;
+        }
+
+        #output, #checkerOutput {
+            background: #E5D0BB;
+            color: #132234;
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            line-height: 1.2;
+            min-height: 120px;
+            padding: 4px;
+            white-space: pre-wrap;
+            overflow-y: auto;
+            border: 2px inset #F7E0C3;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .action-btns {
+            display: flex;
+            gap: 4px;
+            margin-top: 8px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            background: #F7E0C3;
+            color: #132234;
+            border: 2px outset #F7E0C3;
+            padding: 4px 8px;
+            font-size: 11px;
+            font-weight: normal;
+            font-family: 'MS Sans Serif', 'Microsoft Sans Serif', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .action-btn:hover, .toggle-btn:hover {
+            background: #68AAB2;
+            border-color: #68AAB2;
+        }
+
+        .action-btn:active {
+            border: 2px inset #F7E0C3;
+        }
+
+        .world-book-panel {
+            background: #F7E0C3;
+            color: #F7E0C3;
+            border: 2px outset #F7E0C3;
+            box-shadow: 2px 2px 1px #132234;
+        }
+
+        .world-book-panel h3 {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .world-book-panel input {
+            background: #E5D0BB;
+            color: #132234;
+        }
+
+        .world-book-panel label {
+            color: #132234;
+        }
+
+        .world-book-controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .number-input {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .number-input button {
+            width: 20px;
+            height: 20px;
+            border: 2px outset #F7E0C3;
+            background: #F7E0C3;
+            color: #132234;
+            font-size: 11px;
+            font-weight: bold;
+            font-family: 'MS Sans Serif', 'Microsoft Sans Serif', sans-serif;
+        }
+
+        .number-input button:hover {
+            background: #68AAB2;
+            border-color: #68AAB2;
+        }
+
+        .number-input button:active {
+            border: 2px inset #F7E0C3;
+        }
+
+        .number-input input {
+            width: 40px;
+            text-align: center;
+        }
+
+        .repeat-controls {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+
+        .btn-icon {
+            width: 12px;
+            height: 12px;
+        }
+
+        /* Windows 98 特有效果 */
+        .window-title {
+            background: #1F3D5D;
+            color: #F7E0C3;
+            padding: 2px;
+            font-size: 11px;
+            font-weight: bold;
+            margin: -8px -8px 8px -8px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .status-bar {
+            background: #FCEAD1;
+            border: 1px inset #FCEAD1;
+            padding: 2px 4px;
+            font-size: 11px;
+            margin-top: 8px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* 新增：關鍵詞輸入欄位的視覺分隔符號 */
+        .keyword-input {
+            font-family: 'Courier New', monospace;
+            letter-spacing: 1px;
+        }
+
+        .keyword-help {
+            background: #E5D0BB !important;
+            font-size: 10px;
+            color: #132234;
+            margin-top: 2px;
+            line-height: 1.3;
+        }
+
+        /* 填入符號區域樣式 */
+        .symbol-section {
+            border-top: 1px solid #E5D0BB;
+            margin-top: 8px;
+            padding-top: 8px;
+        }
+
+        .symbol-buttons {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+            margin-top: 4px;
+        }
+
+        .symbol-btn {
+            background: #F7E0C3;
+            color: #132234;
+            border: 2px outset #F7E0C3;
+            padding: 2px 6px;
+            font-size: 11px;
+            font-family: 'MS Sans Serif', 'Microsoft Sans Serif', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            min-width: 60px;
+            justify-content: center;
+        }
+
+        .symbol-btn:hover {
+            background: #68AAB2;
+            border-color: #68AAB2;
+        }
+
+        .symbol-btn:active {
+            border: 2px inset #F7E0C3;
+        }
+
+        /* 頁面顯示控制 */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* 首頁特殊樣式 */
+        .home-info {
+            background: rgba(246, 200, 184, 0.1);
+            border-radius: 2px;
+            padding: 8px;
+            line-height: 1.4;
+        }
+
+        .home-info ul {
+            margin-left: 16px;
+            margin-top: 4px;
+        }
+
+        .home-info li {
+            margin-bottom: 4px;
+        }
+
+        /* 文本檢查器樣式 */
+        .toggle-btn {
+            background: #F7E0C3;
+            color: #132234;
+            border: 2px outset #F7E0C3;
+            padding: 4px 8px;
+            font-size: 11px;
+            font-weight: normal;
+            font-family: 'MS Sans Serif', 'Microsoft Sans Serif', sans-serif;
+            gap: 4px;
+            margin-top: 4px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .toggle-btn.active {
+            background: #68AAB2;
+            border: 2px inset #F7E0C3;
+        }
+
+        .preview-panel {
+            width: 100%;
+            padding: 2px;
+            border: 2px inset #E5D0BB;
+            background: #E5D0BB;
+            color: #132234;
+            font-size: 11px;
+            font-family: 'MS Sans Serif', 'Microsoft Sans Serif', sans-serif;
+            min-height: 60px;
+            resize: vertical;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            word-break: break-word;
+            display: none;
+        }
+
+        .preview-panel.active {
+            display: block;
+        }
+
+        #previewContent {
+        width: 100%;
+        padding: 2px;
+        border: 2px inset #E5D0BB;
+        background: #E5D0BB;
+        color: #132234;
+        font-size: 11px;
+        font-family: 'MS Sans Serif', 'Microsoft Sans Serif', sans-serif;
+         min-height: 60px;
+        resize: vertical;
+        line-height: 1.6;
+        white-space: pre-wrap;
+        word-break: break-word;
+        outline: none;
+        cursor: text;
+        }
+
+        #previewContent:focus {
+            outline: 1px dotted #132234;
+        }
+
+        /* 即時預覽高亮樣式 */
+        .highlight-whitespace {
+            background-color: #d6c4b8;
+            color: white;
+            padding: 2px 4px;
+            font-weight: bold;
+        }
+
+        .highlight-colon {
+            background-color: #64caa0;
+            color: white;
+            padding: 2px 4px;
+            font-weight: bold;
+        }
+
+        .highlight-user {
+            background-color: #5786b8;
+            color: white;
+            padding: 2px 4px;
+            font-weight: bold;
+        }
+
+        .highlight-char {
+            background-color: #c5577c;
+            color: white;
+            padding: 2px 4px;
+            font-weight: bold;
+        }
+
+        .legend {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            font-size: 12px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .legend-color {
+            width: 15px;
+            height: 15px;
+        }
+
+        /* Token計數器樣式 */
+        .token-container {
+            position: relative;
+        }
+
+        .token-counter {
+            position: absolute;
+            top: -20px;
+            right: 0;
+            background: #1F3D5D;
+            color: #F7E0C3;
+            padding: 2px 6px;
+            font-size: 10px;
+            border-radius: 2px;
+            font-weight: bold;
+        }
+
+        .token-input {
+            min-height: 120px;
+            font-family: 'Courier New', monospace;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>
+                🚂RMT Station▪️Simple Creation Assistant
+            </h1>
+            <h2>
+                🚂RMT 車站▪️簡易創作助手_v1 20250820
+            </h2>
+        </div>
+
+        <!-- 全域狀態顯示區域 -->
+        <div class="global-status" id="globalStatus">
+                當前頁面：首頁
+        </div>
+
+        <!-- 頁面導覽器 -->
+        <div class="navigation">
+            <button class="nav-btn active" onclick="navigateToPage('home')">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                    <polyline points="9,22 9,12 15,12 15,22"/>
+                </svg>
+                首頁
+            </button>
+            <button class="nav-btn" onclick="navigateToPage('worldbook')">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                </svg>
+                世界書觸發模板
+            </button>
+            <button class="nav-btn" onclick="navigateToPage('checker')">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 12l2 2 4-4"/>
+                    <path d="M21 12c-1 0-3-1-3-3s2-3 3-3 3 1 3 3-2 3-3 3"/>
+                    <path d="M3 12c1 0 3-1 3-3s-2-3-3-3-3 1-3 3 2 3 3 3"/>
+                    <path d="M12 3c0 1-1 3-3 3s-3-2-3-3 1-3 3-3 3 2 3 3"/>
+                    <path d="M12 21c0-1-1-3-3-3s-3 2-3 3 1 3 3 3 3-2 3-3"/>
+                </svg>
+                文本檢查器
+            </button>
+            <button class="nav-btn" onclick="navigateToPage('token')">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2L2 7v10c0 5.55 3.84 9.74 9 11 5.16-1.26 9-5.45 9-11V7l-10-5z"/>
+                    <path d="M9 12l2 2 4-4"/>
+                </svg>
+                Token計數器
+            </button>
+        </div>
+
+        <!-- 首頁 -->
+        <div id="home-page" class="page active">
+            <div class="panel">
+                <div class="window-title">
+                    <svg class="panel-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 6v6l4 2"/>
+                    </svg>
+                    歡迎使用 RMT車站的簡易創作助手
+                </div>
+                <div class="home-info">
+                    <strong>▼ 功能介紹：</strong><br>
+                    <ul>
+                        <li>世界書觸發模板：提供快速生成Regex觸發的關鍵字</li>
+                        <li>文本檢查器：檢查輸入的各種要素，附帶即時預覽模式，可同時修改檢查文本</li>
+                        <li>Token計數器：即時計算輸入文本的Tokens字符，僅供參考</li>
+                
+                    <br>
+                    </ul>
+                    <strong>✎ 使用說明：</strong><br>
+                    <ul>
+                    <li>點擊上方導覽按鈕切換不同功能頁面</li>
+                    <li>生成的內容都可以複製到剪貼簿或儲存為文件</li>
+                    </ul>
+                    <br>
+                    <strong>⚑ 更新歷程：</strong><br>
+                    <ul>
+                    <li>2025/08/20_新增更多觸發模板，css最終調整</li>
+                    <li>2025/08/19_調整分詞器，更趨近真實</li>
+                    <li>2025/08/18_v1初版完成</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 世界書觸發模板頁面 -->
+        <div id="worldbook-page" class="page">
+            <div class="panel world-book-panel">
+                <div class="window-title">
+                    <svg class="panel-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                    </svg>
+                    設置Regex觸發 (關鍵詞 Key)
+                </div>
+                <div class="keyword-help" style="margin-bottom: 8px; padding: 4px; background: rgba(246, 200, 184, 0.1); border-radius: 2px;">
+                    <strong>關鍵詞輸入說明：</strong><br>
+                    • 使用 <code>|</code> 分隔多個選項（如：我|妳|他）<br>
+                    • 使用 <code>, </code> 輸入會自動轉換為 <code>|</code>（如：我, 妳 → 我|妳）<br>
+                    • 空白的 <code>|</code> 區段將自動移除
+                </div>
+                <div class="world-book-controls">
+                    <div class="input-group">
+                        <label>中間(?:text)段數量:</label>
+                        <div class="number-input">
+                            <button onclick="changeWorldBookCount(-1)">-</button>
+                            <input type="number" id="worldBookCount" value="1" min="0">
+                            <button onclick="changeWorldBookCount(1)">+</button>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <button class="template-btn" onclick="setupWorldBookInputs()">
+                            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 20h9"/>
+                                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+                            </svg>
+                            設定關鍵詞
+                        </button>
+    <button class="template-btn" onclick="generateWorldBook()" style="margin-top: 4px;">
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9,11 12,14 22,4"/>
+            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+        </svg>
+        生成連接型模板
+    </button>
+    <button class="template-btn" onclick="generateWorldBook2()" style="margin-top: 4px;">
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9,11 12,14 22,4"/>
+            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+        </svg>
+        生成普通型模板
+    </button>
+                    </div>
+                </div>
+
+                <!-- 填入符號區域 -->
+                <div class="symbol-section">
+                    <label style="color: #132234; font-weight: bold; margin-bottom: 4px; display: block;">填入符號:</label>
+                    <div class="symbol-buttons">
+                        <button class="symbol-btn" onclick="insertSymbol('separator')">
+                            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="5" y1="12" x2="19" y2="12"/>
+                            </svg>
+                            分隔線
+                        </button>
+                        <button class="symbol-btn" onclick="insertSymbol('bracket1')">
+
+                            [
+                        </button>
+                        <button class="symbol-btn" onclick="insertSymbol('bracket2')">
+                            ]
+                        </button>
+                        <button class="symbol-btn" onclick="insertSymbol('hash')">
+                            ###
+                        </button>
+                    </div>
+                </div>
+
+                <div id="worldBookInputs" class="world-book-controls" style="display: none; margin-top: 8px; border-top: 1px solid #F7E0C3; padding-top: 8px;">
+                    <!-- 動態生成的輸入框會出現在這裡 -->
+                </div>
+            </div>
+
+            <div class="panel output-area">
+                <div class="window-title">
+                    <svg class="panel-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 5H7a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h2m0-18h2.5a2.5 2.5 0 0 1 0 5H11h.5a2.5 2.5 0 0 1 0 5H11"/>
+                        <path d="M5 5l14 14"/>
+                        <path d="m19 5-14 14"/>
+                    </svg>
+                    輸出結果
+                </div>
+                <div id="output">點擊上方按鈕來生成模板...</div>
+                <div class="action-btns">
+                    <button class="action-btn" onclick="copyToClipboard()">
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                        </svg>
+                        複製到剪貼簿
+                    </button>
+                    <button class="action-btn" onclick="clearOutput()">
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="3,6 5,6 21,6"/>
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                        </svg>
+                        清空輸出
+                    </button>
+                    <button class="action-btn" onclick="saveAsFile()">
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+                            <polyline points="17,21 17,13 7,13 7,21"/>
+                            <polyline points="7,3 7,8 15,8"/>
+                        </svg>
+                        儲存為檔案
+                    </button>
+                </div>
+                <div class="status-bar">
+                    <span>就緒</span>
+                    <span id="statusText">等待操作</span>
+                </div>
+            </div>
+        </div>
+
+<!-- 文本檢查器頁面 -->
+    <div id="checker-page" class="page">
+        <div class="panel">
+            <div class="window-title">
+                <svg class="panel-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 12l2 2 4-4"/>
+                    <circle cx="12" cy="12" r="9"/>
+                </svg>
+                文本檢查器
+            </div>
+            <div class="input-group">
+                <label>輸入要檢查的文本:</label>
+                <textarea id="checkerInput" class="checker-input" placeholder="請輸入要檢查的文本內容..."></textarea>
+            </div>
+            <div class="checker-buttons">
+                <button class="toggle-btn" id="previewToggle" onclick="togglePreview()">
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                        <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                    即時預覽
+                </button>
+                <button class="template-btn" onclick="checkLength()">
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                        <polyline points="7.5,10.5 12,15 16.5,10.5"/>
+                    </svg>
+                    檢查長度
+                </button>
+                <button class="template-btn" onclick="checkSpaces()">
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3"/>
+                        <path d="M12 1v6m0 6v6"/>
+                        <path d="m21 12-6 0m-6 0-6 0"/>
+                    </svg>
+                    空白字符
+                </button>
+            </div>
+        </div>
+
+        <div class="panel output-area">
+            <div class="window-title">
+                <svg class="panel-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <polyline points="14,2 14,8 20,8"/>
+                </svg>
+                檢查結果
+            </div>
+            
+            <!-- 傳統檢查結果 -->
+            <div id="checkerOutput">請輸入文本並選擇檢查項目...</div>
+            
+            <!-- 即時預覽面板 -->
+            <div id="previewPanel" class="preview-panel">
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #64caa0;"></div>
+                        <span>冒號</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #d6c4b8;"></div>
+                        <span>空格</span>
+                        </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #5786b8;"></div>
+                        <span>user</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #c5577c;"></div>
+                        <span>char</span>
+                    </div>
+                </div>
+                <div id="previewContent" contenteditable="true">請輸入文本以查看即時預覽...</div>
+            </div>
+            
+            <div class="action-btns">
+                <button class="action-btn" onclick="copyCheckerResult()">
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                    </svg>
+                    複製結果
+                </button>
+                <button class="action-btn" onclick="clearCheckerOutput()">
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="3,6 5,6 21,6"/>
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                    </svg>
+                    清空結果
+                </button>
+            </div>
+            <div class="status-bar">
+                <span>就緒</span>
+                <span id="checkerStatusText">等待操作</span>
+            </div>
+        </div>
+    </div>
+
+    
+        <!-- Token計數器頁面 -->
+        <div id="token-page" class="page">
+            <div class="panel">
+                <div class="window-title">
+                    <svg class="panel-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L2 7v10c0 5.55 3.84 9.74 9 11 5.16-1.26 9-5.45 9-11V7l-10-5z"/>
+                        <path d="M9 12l2 2 4-4"/>
+                    </svg>
+                    Token計數器
+                </div>
+                <div class="input-group">
+                    <label>輸入要計算Token的文本:</label>
+                    <div class="token-container">
+                        <div class="token-counter" id="tokenCounter">Tokens: 0</div>
+                        <textarea id="tokenInput" class="token-input" placeholder="請輸入要計算Token數量的文本..." oninput="calculateTokens()"></textarea>
+                    </div>
+                </div>
+                <div class="keyword-help" style="margin-top: 8px; padding: 4px; background: rgba(246, 200, 184, 0.1); border-radius: 2px;">
+                    <strong>Token計算說明：</strong><br>
+                    • Token計算基於字符數的簡約估算公式<br>
+                    • 實際Token數可能因模型而異，僅供參考<br>
+                    • 實用Tokenizer網站推薦:Open.AI
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentPage = 'home';
+
+        // 更新全域狀態顯示的函數
+        function updateGlobalStatus(pageName) {
+            const globalStatus = document.getElementById('globalStatus');
+            if (globalStatus) {
+                globalStatus.textContent = `當前頁面：${pageName}`;
+            }
+        }
+
+        function updateStatus(text) {
+            const statusElement = document.getElementById('statusText');
+            if (statusElement) {
+                statusElement.textContent = text;
+            }
+        }
+
+        // 新增：更新檢查器狀態的函數
+        function updateCheckerStatus(text) {
+            const statusElement = document.getElementById('checkerStatusText');
+            if (statusElement) {
+                statusElement.textContent = text;
+            }
+        }
+
+        // 頁面導覽功能 - 修復後的版本
+        function navigateToPage(page) {
+            // 隱藏所有頁面
+            document.querySelectorAll('.page').forEach(p => {
+                p.classList.remove('active');
+            });
+            
+            // 移除所有active類別
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // 為當前頁面按鈕添加 active類別
+            event.target.closest('.nav-btn').classList.add('active');
+            
+            // 顯示對應頁面
+            const targetPage = document.getElementById(page + '-page');
+            if (targetPage) {
+                targetPage.classList.add('active');
+                currentPage = page;
+            }
+            
+            // 更新頁面狀態顯示
+            const pageNames = {
+                'home': '首頁',
+                'worldbook': '世界書觸發模板',
+                'checker': '文本檢查器',
+                'token': 'Token計數器'
+            };
+            
+            const pageName = pageNames[page] || '未知頁面';
+            updateGlobalStatus(pageName);
+        }
+
+        // 填入符號功能
+        function insertSymbol(type) {
+            let value;
+            
+            switch (type) {
+                case 'separator':
+                    value = '='.repeat(50);
+                    break;
+                case 'bracket1':
+                    value = '[';
+                    break;
+                case 'bracket2':
+                    value = ']';
+                    break;
+                case 'hash':
+                    value = '###';
+                    break;
+            }
+
+            const output = document.getElementById('output');
+            if (output.textContent.includes('點擊上方按鈕來生成模板...')) {
+                output.textContent = value;
+            } else {
+                output.textContent += (output.textContent.trim() ? '\n' : '') + value;
+            }
+            
+            updateStatus(`已插入${getSymbolName(type)}`);
+        }
+
+        function getSymbolName(type) {
+            const names = {
+                'separator': '分隔線',
+                'bracket1': '上方括號',
+                'bracket2': '下方括號',
+                'hash': '井號'
+            };
+            return names[type] || '符號';
+        }
+
+// 新增：處理關鍵詞的函數
+function processKeywords(inputValue) {
+    if (!inputValue.trim()) return '';
+    
+    // 先將 ', ' 替換為 '|'
+    let processed = inputValue.replace(/,\s+/g, '|');
+    
+    // 移除空的段落（連續的 | 或開頭結尾的 |）
+    processed = processed
+        .split('|')
+        .filter(segment => segment.trim() !== '')
+        .join('|');
+    
+    return processed;
+}
+
+function setupWorldBookInputs() {
+    const count = parseInt(document.getElementById('worldBookCount').value) || 0;
+    const inputsContainer = document.getElementById('worldBookInputs');
+    
+    // 清空現有輸入框
+    inputsContainer.innerHTML = '';
+    
+    // 總是有開頭輸入框
+    const startInputGroup = document.createElement('div');
+    startInputGroup.className = 'input-group';
+    startInputGroup.innerHTML = `
+        <label for="worldBookStart">開頭關鍵詞:</label>
+        <input type="text" id="worldBookStart" class="keyword-input" placeholder="輸入開頭關鍵詞（支援 | 或 , 分隔多選項）">
+        <div class="keyword-help">範例：我|你|他|{{user}}|{{char}} 或 我, 你, 他, {{user}}, {{char}}</div>
+    `;
+    inputsContainer.appendChild(startInputGroup);
+    
+    // 生成中間段輸入框
+    for (let i = 1; i <= count; i++) {
+        const inputGroup = document.createElement('div');
+        inputGroup.className = 'input-group';
+        inputGroup.innerHTML = `
+            <label for="worldBookMiddle${i}">中間關鍵詞 ${i}:</label>
+            <input type="text" id="worldBookMiddle${i}" class="keyword-input" placeholder="輸入第${i}個中間關鍵詞（支援 | 或 , 分隔多選項）">
+            <div class="keyword-help">範例：跑向|愛|看到|的|地 或 跑向, 愛, 看到, 的, 地</div>
+        `;
+        inputsContainer.appendChild(inputGroup);
+    }
+    
+    // 總是有結尾輸入框
+    const endInputGroup = document.createElement('div');
+    endInputGroup.className = 'input-group';
+    endInputGroup.innerHTML = `
+        <label for="worldBookEnd">結尾關鍵詞:</label>
+        <input type="text" id="worldBookEnd" class="keyword-input" placeholder="輸入結尾關鍵詞（支援 | 或 , 分隔多選項）">
+        <div class="keyword-help">範例：他|{{char}}|嗎|呢|那裡 或 他, {{char}}, 嗎, 呢, 那裡</div>
+    `;
+    inputsContainer.appendChild(endInputGroup);
+    
+    inputsContainer.style.display = 'grid';
+    updateStatus('已設定關鍵詞輸入框');
+}
+
+function generateWorldBook() {
+    const count = parseInt(document.getElementById('worldBookCount').value) || 0;
+    
+    // 檢查是否已設定輸入框
+    const inputsContainer = document.getElementById('worldBookInputs');
+    if (inputsContainer.style.display === 'none' || inputsContainer.children.length === 0) {
+        alert('請先點擊「設定關鍵詞」按鈕');
+        return;
+    }
+    
+    // 取得開頭和結尾關鍵詞
+    const startInput = document.getElementById('worldBookStart');
+    const endInput = document.getElementById('worldBookEnd');
+    
+    const startKeyword = startInput ? processKeywords(startInput.value) : '';
+    const endKeyword = endInput ? processKeywords(endInput.value) : '';
+    
+    if (!startKeyword) {
+        alert('請填入開頭關鍵詞');
+        return;
+    }
+    if (!endKeyword) {
+        alert('請填入結尾關鍵詞');
+        return;
+    }
+    
+    // 收集中間關鍵詞
+    const middleKeywords = [];
+    for (let i = 1; i <= count; i++) {
+        const input = document.getElementById(`worldBookMiddle${i}`);
+        const processedValue = input ? processKeywords(input.value) : '';
+        if (!processedValue) {
+            alert(`請填入中間關鍵詞 ${i}`);
+            return;
+        }
+        middleKeywords.push(processedValue);
+    }
+
+    // 生成連接型模板
+    let newTemplate = `# 世界書(Regex觸發)
+## 關鍵詞/Key(連接型)
+/(?:${startKeyword})`;
+
+    // 添加中間的.*?(?:keyword)段
+    for (let i = 0; i < middleKeywords.length; i++) {
+        newTemplate += `.*?(?:${middleKeywords[i]})`;
+    }
+    
+    // 添加結尾
+    newTemplate += `.*?(?:${endKeyword})/i`;
+    
+    // 獲取現有內容並追加新模板
+    const outputElement = document.getElementById('output');
+    if (outputElement.textContent.includes('點擊上方按鈕來生成模板...')) {
+        outputElement.textContent = newTemplate;
+    } else {
+        outputElement.textContent += (outputElement.textContent.trim() ? '\n' : '') + newTemplate;
+    }
+    
+    updateStatus('連接型模板已生成');
+}
+
+
+function generateWorldBook2() {
+    const count = parseInt(document.getElementById('worldBookCount').value) || 0;
+    
+    // 檢查是否已設定輸入框
+    const inputsContainer = document.getElementById('worldBookInputs');
+    if (inputsContainer.style.display === 'none' || inputsContainer.children.length === 0) {
+        alert('請先點擊「設定關鍵詞」按鈕');
+        return;
+    }
+    
+    // 取得開頭和結尾關鍵詞
+    const startInput = document.getElementById('worldBookStart');
+    const endInput = document.getElementById('worldBookEnd');
+    
+    const startKeyword = startInput ? processKeywords(startInput.value) : '';
+    const endKeyword = endInput ? processKeywords(endInput.value) : '';
+    
+    if (!startKeyword) {
+        alert('請填入開頭關鍵詞');
+        return;
+    }
+    if (!endKeyword) {
+        alert('請填入結尾關鍵詞');
+        return;
+    }
+    
+    // 收集中間關鍵詞
+    const middleKeywords = [];
+    for (let i = 1; i <= count; i++) {
+        const input = document.getElementById(`worldBookMiddle${i}`);
+        const processedValue = input ? processKeywords(input.value) : '';
+        if (!processedValue) {
+            alert(`請填入中間關鍵詞 ${i}`);
+            return;
+        }
+        middleKeywords.push(processedValue);
+    }
+
+    // 生成普通型模板（不使用.*?連接）
+    let newTemplate = `# 世界書(Regex觸發)
+## 關鍵詞/Key(普通型)
+/(?:${startKeyword})`;
+
+    // 直接連接中間關鍵詞，不使用.*?
+    for (let i = 0; i < middleKeywords.length; i++) {
+        newTemplate += `(?:${middleKeywords[i]})`;
+    }
+    
+    // 添加結尾
+    newTemplate += `(?:${endKeyword})/i`;
+    
+    // 獲取現有內容並追加新模板
+    const outputElement = document.getElementById('output');
+    if (outputElement.textContent.includes('點擊上方按鈕來生成模板...')) {
+        outputElement.textContent = newTemplate;
+    } else {
+        outputElement.textContent += (outputElement.textContent.trim() ? '\n' : '') + newTemplate;
+    }
+    
+    updateStatus('普通型模板已生成');
+}
+
+function changeWorldBookCount(delta) {
+    const input = document.getElementById('worldBookCount');
+    const current = parseInt(input.value) || 1;
+    const newValue = Math.max(0, current + delta);
+    input.value = newValue;
+    
+    // 如果輸入框已經顯示，自動更新
+    const inputsContainer = document.getElementById('worldBookInputs');
+    if (inputsContainer.style.display !== 'none') {
+        setupWorldBookInputs();
+    }
+    updateStatus(`中間段數量: ${newValue}`);
+}
+
+        function copyToClipboard() {
+            const output = document.getElementById('output').textContent;
+            if (!output.trim() || output.includes('點擊上方按鈕來生成模板')) {
+                alert('沒有內容可以複製');
+                return;
+            }
+
+            navigator.clipboard.writeText(output).then(() => {
+                alert('已複製到剪貼簿！');
+                updateStatus('已複製到剪貼簿');
+            }).catch(() => {
+                // 備用方法
+                const textarea = document.createElement('textarea');
+                textarea.value = output;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                alert('已複製到剪貼簿！');
+                updateStatus('已複製到剪貼簿');
+            });
+        }
+
+        function clearOutput() {
+            document.getElementById('output').textContent = '點擊上方按鈕來生成模板...';
+            updateStatus('輸出已清空');
+        }
+
+        function saveAsFile() {
+            const output = document.getElementById('output').textContent;
+            if (!output.trim() || output.includes('點擊上方按鈕來生成模板')) {
+                alert('沒有內容可以儲存');
+                return;
+            }
+
+            const blob = new Blob([output], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'worldbook_template.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            updateStatus('檔案已儲存');
+        }
+
+        // 即時預覽功能
+        let isPreviewMode = false;
+        let isUpdatingFromPreview = false;
+        let previewHistory = []; // 撤銷歷史記錄
+        let historyIndex = -1; // 當前歷史索引
+        let lastSavedSelection = null; // 儲存的選擇範圍
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            const input = document.getElementById('checkerInput');
+            const previewContent = document.getElementById('previewContent');
+            
+            input.addEventListener('input', handleInputChange);
+            previewContent.addEventListener('input', handlePreviewChange);
+            previewContent.addEventListener('keydown', handlePreviewKeydown);
+            previewContent.addEventListener('beforeinput', handlePreviewBeforeInput);
+            
+            // 防止預覽面板中的某些默認行為
+            previewContent.addEventListener('paste', function(e) {
+                e.preventDefault();
+                const text = e.clipboardData.getData('text/plain');
+                insertTextAtCursor(text);
+                saveToHistory();
+            });
+
+            // 監聽焦點事件，保存選擇範圍
+            previewContent.addEventListener('blur', saveSelection);
+            previewContent.addEventListener('focus', restoreSelection);
+        });
+
+        // 處理預覽面板按鍵事件
+        function handlePreviewKeydown(e) {
+            if (e.ctrlKey && e.key === 'z' && !e.shiftKey) {
+                e.preventDefault();
+                undo();
+            } else if (e.ctrlKey && (e.key === 'y' || (e.key === 'z' && e.shiftKey))) {
+                e.preventDefault();
+                redo();
+            }
+        }
+
+        // 處理預覽面板輸入前事件
+        function handlePreviewBeforeInput(e) {
+            if (isPreviewMode && !isUpdatingFromPreview) {
+                // 在輸入前保存當前狀態
+                saveToHistory();
+            }
+        }
+
+        // 處理輸入變化
+        function handleInputChange() {
+            if (isPreviewMode & !isUpdatingFromPreview) {
+                updatePreview();
+            }
+        }
+
+        // 處理預覽面板內容變化
+        function handlePreviewChange(e) {
+            if (isPreviewMode && !isUpdatingFromPreview) {
+                isUpdatingFromPreview = true;
+                
+                const previewContent = document.getElementById('previewContent');
+                const plainText = getPlainTextFromPreview(previewContent);
+                
+                document.getElementById('checkerInput').value = plainText;
+                
+                // 延遲重新應用高亮，避免光標跳動
+                setTimeout(() => {
+                    updatePreviewWithoutCursorReset();
+                    isUpdatingFromPreview = false;
+                }, 10);
+                
+                updateCheckerStatus('預覽內容已更新');
+            }
+        }
+
+        // 從預覽面板提取純文本
+        function getPlainTextFromPreview(element) {
+            let text = '';
+            for (let node of element.childNodes) {
+                if (node.nodeType === Node.TEXT_NODE) {
+                    text += node.textContent;
+                } else if (node.nodeType === Node.ELEMENT_NODE) {
+                    text += getPlainTextFromPreview(node);
+                }
+            }
+            return text;
+        }
+
+        // 在光標位置插入文本
+        function insertTextAtCursor(text) {
+            const selection = window.getSelection();
+            if (selection.rangeCount > 0) {
+                const range = selection.getRangeAt(0);
+                range.deleteContents();
+                const textNode = document.createTextNode(text);
+                range.insertNode(textNode);
+                range.setStartAfter(textNode);
+                range.setEndAfter(textNode);
+                selection.removeAllRanges();
+                selection.addRange(range);
+            }
+        }
+
+        // 保存選擇範圍
+        function saveSelection() {
+            const selection = window.getSelection();
+            if (selection.rangeCount > 0) {
+                lastSavedSelection = {
+                    start: getTextOffset(selection.getRangeAt(0).startContainer, selection.getRangeAt(0).startOffset),
+                    end: getTextOffset(selection.getRangeAt(0).endContainer, selection.getRangeAt(0).endOffset)
+                };
+            }
+        }
+
+        // 恢復選擇範圍
+        function restoreSelection() {
+            if (lastSavedSelection && isPreviewMode) {
+                setTimeout(() => {
+                    setTextSelection(lastSavedSelection.start, lastSavedSelection.end);
+                }, 10);
+            }
+        }
+
+        // 獲取文本偏移量
+        function getTextOffset(node, offset) {
+            const previewContent = document.getElementById('previewContent');
+            const walker = document.createTreeWalker(
+                previewContent,
+                NodeFilter.SHOW_TEXT,
+                null,
+                false
+            );
+            
+            let textOffset = 0;
+            let currentNode;
+            
+            while (currentNode = walker.nextNode()) {
+                if (currentNode === node) {
+                    return textOffset + offset;
+                }
+                textOffset += currentNode.textContent.length;
+            }
+            
+            return textOffset;
+        }
+
+        // 設置文本選擇
+        function setTextSelection(start, end) {
+            const previewContent = document.getElementById('previewContent');
+            const walker = document.createTreeWalker(
+                previewContent,
+                NodeFilter.SHOW_TEXT,
+                null,
+                false
+            );
+            
+            const range = document.createRange();
+            const selection = window.getSelection();
+            let textOffset = 0;
+            let startSet = false;
+            let currentNode;
+            
+            while (currentNode = walker.nextNode()) {
+                const nodeLength = currentNode.textContent.length;
+                
+                if (!startSet && textOffset + nodeLength >= start) {
+                    range.setStart(currentNode, start - textOffset);
+                    startSet = true;
+                }
+                
+                if (startSet && textOffset + nodeLength >= end) {
+                    range.setEnd(currentNode, end - textOffset);
+                    break;
+                }
+                
+                textOffset += nodeLength;
+            }
+            
+            selection.removeAllRanges();
+            selection.addRange(range);
+        }
+
+        // 保存到歷史記錄
+        function saveToHistory() {
+            const previewContent = document.getElementById('previewContent');
+            const currentText = getPlainTextFromPreview(previewContent);
+            
+            // 移除當前索引之後的歷史記錄
+            previewHistory = previewHistory.slice(0, historyIndex + 1);
+            
+            // 添加新的歷史記錄
+            previewHistory.push(currentText);
+            historyIndex = previewHistory.length - 1;
+            
+            // 限制歷史記錄數量
+            if (previewHistory.length > 25) {
+                previewHistory.shift();
+                historyIndex--;
+            }
+        }
+
+        // 撤銷操作
+        function undo() {
+            if (historyIndex > 0) {
+                historyIndex--;
+                const previousText = previewHistory[historyIndex];
+                
+                isUpdatingFromPreview = true;
+                document.getElementById('checkerInput').value = previousText;
+                updatePreview();
+                isUpdatingFromPreview = false;
+                
+                updateCheckerStatus('已撤銷操作');
+            }
+        }
+
+        // 重做操作
+        function redo() {
+            if (historyIndex < previewHistory.length - 1) {
+                historyIndex++;
+                const nextText = previewHistory[historyIndex];
+                
+                isUpdatingFromPreview = true;
+                document.getElementById('checkerInput').value = nextText;
+                updatePreview();
+                isUpdatingFromPreview = false;
+                
+                updateCheckerStatus('已重做操作');
+            }
+        }
+
+        // 切換預覽模式
+        function togglePreview() {
+            isPreviewMode = !isPreviewMode;
+            const toggleBtn = document.getElementById('previewToggle');
+            const previewPanel = document.getElementById('previewPanel');
+            const checkerOutput = document.getElementById('checkerOutput');
+            
+            if (isPreviewMode) {
+                toggleBtn.classList.add('active');
+                previewPanel.classList.add('active');
+                checkerOutput.style.display = 'none';
+                
+                // 初始化歷史記錄
+                const input = document.getElementById('checkerInput').value;
+                previewHistory = [input];
+                historyIndex = 0;
+                
+                updatePreview();
+                updateCheckerStatus('即時預覽模式已開啟 - 可直接編輯 (Ctrl+Z撤銷)');
+            } else {
+                toggleBtn.classList.remove('active');
+                previewPanel.classList.remove('active');
+                checkerOutput.style.display = 'block';
+                
+                // 清理歷史記錄
+                previewHistory = [];
+                historyIndex = -1;
+                lastSavedSelection = null;
+                
+                updateCheckerStatus('即時預覽模式已關閉');
+            }
+        }
+
+        // 更新即時預覽（不重置光標）
+        function updatePreviewWithoutCursorReset() {
+            const input = document.getElementById('checkerInput').value;
+            const previewContent = document.getElementById('previewContent');
+            
+            if (!input.trim()) {
+                previewContent.innerHTML = '請輸入文本以查看即時預覽...';
+                return;
+            }
+
+            // 保存當前選擇
+            saveSelection();
+
+            // 應用高亮規則
+            let highlightedText = escapeHtml(input);
+            
+            // 1. 先高亮冒號，使用唯一標記保護
+            highlightedText = highlightedText.replace(
+                /([^<>]*?)(:)([^<>]*?)/g,
+                '$1{{COLON_PLACEHOLDER}}$3'
+            );
+
+            // 2. 高亮空白字符
+            highlightedText = highlightedText.replace(
+                /( |\t)/g,
+                '<span class="highlight-whitespace">$1</span>'
+            );
+
+            // 3. 還原冒號高亮
+            highlightedText = highlightedText.replace(
+                /{{COLON_PLACEHOLDER}}/g,
+                '<span class="highlight-colon">:</span>'
+            );
+
+            // 3. 高亮 user
+            highlightedText = highlightedText.replace(
+                /(\buser\b)/ig,
+                '<span class="highlight-user">$1</span>'
+            );
+            
+            // 4. 高亮 char
+            highlightedText = highlightedText.replace(
+                /(\bchar\b)/ig,
+                '<span class="highlight-char">$1</span>'
+            );
+
+            previewContent.innerHTML = highlightedText;
+
+            // 恢復選擇
+            restoreSelection();
+        }
+
+        // 更新即時預覽
+        function updatePreview() {
+            const input = document.getElementById('checkerInput').value;
+            const previewContent = document.getElementById('previewContent');
+            
+            if (!input.trim()) {
+                previewContent.innerHTML = '請輸入文本以查看即時預覽...';
+                return;
+            }
+
+            // 應用高亮規則
+            let highlightedText = escapeHtml(input);
+            
+            // 1. 先高亮冒號，使用唯一標記保護
+            highlightedText = highlightedText.replace(
+                /([^<>]*?)(:)([^<>]*?)/g,
+                '$1{{COLON_PLACEHOLDER}}$3'
+            );
+            
+            // 2. 高亮空白字符
+            highlightedText = highlightedText.replace(
+                /( |\t)/g,
+                '<span class="highlight-whitespace">$1</span>'
+            );
+
+            // 3. 還原冒號高亮
+            highlightedText = highlightedText.replace(
+                /{{COLON_PLACEHOLDER}}/g,
+                '<span class="highlight-colon">:</span>'
+            );
+
+            // 3. 高亮 user
+            highlightedText = highlightedText.replace(
+                /(\buser\b)/ig,
+                '<span class="highlight-user">$1</span>'
+            );
+            
+            // 4. 高亮 char
+            highlightedText = highlightedText.replace(
+                /(\bchar\b)/ig,
+                '<span class="highlight-char">$1</span>'
+            );
+
+            previewContent.innerHTML = highlightedText;
+        }
+
+        // HTML 轉義函數
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // 更新檢查器狀態的函數
+        function updateCheckerStatus(text) {
+            const statusElement = document.getElementById('checkerStatusText');
+            if (statusElement) {
+                statusElement.textContent = text;
+            }
+        }
+
+        // 文本檢查器功能
+        function checkLength() {
+            const input = document.getElementById('checkerInput').value;
+            const output = document.getElementById('checkerOutput');
+            
+            if (!input.trim()) {
+                alert('請先輸入要檢查的文本');
+                return;
+            }
+            
+            // 如果在預覽模式，先切換回正常模式
+            if (isPreviewMode) {
+                togglePreview();
+            }
+            
+            const charCount = input.length;
+            const wordCount = input.trim().split(/\s+/).length;
+            const lineCount = input.split('\n').length;
+            
+            output.textContent = `文本長度檢查結果：
+            
+字符數：${charCount}
+單詞數：${wordCount}
+行數：${lineCount}
+不含空格字符數：${input.replace(/\s/g, '').length}`;
+            
+            updateCheckerStatus('長度檢查完成');
+        }
+
+        function checkSpaces() {
+            const input = document.getElementById('checkerInput').value;
+            const output = document.getElementById('checkerOutput');
+            
+            if (!input.trim()) {
+                alert('請先輸入要檢查的文本');
+                return;
+            }
+            
+            // 如果在預覽模式，先切換回正常模式
+            if (isPreviewMode) {
+                togglePreview();
+            }
+            
+            const spaces = input.match(/ /g) || [];
+            const tabs = input.match(/\t/g) || [];
+            const newlines = input.match(/\n/g) || [];
+            const allWhitespace = input.match(/\s/g) || [];
+            
+            output.textContent = `空白字符檢查結果：
+            
+空格數：${spaces.length}
+Tab字符數：${tabs.length}
+換行符數：${newlines.length}
+總空白字符數：${allWhitespace.length}`;
+            
+            updateCheckerStatus('空白字符檢查完成');
+        }
+
+        function copyCheckerResult() {
+            let contentToCopy;
+            
+            if (isPreviewMode) {
+                // 預覽模式下複製原始文本
+                contentToCopy = document.getElementById('checkerInput').value;
+                if (!contentToCopy.trim()) {
+                    alert('沒有內容可以複製');
+                    return;
+                }
+            } else {
+                // 正常模式下複製檢查結果
+                contentToCopy = document.getElementById('checkerOutput').textContent;
+                if (!contentToCopy.trim() || contentToCopy.includes('請輸入文本並選擇檢查項目')) {
+                    alert('沒有檢查結果可以複製');
+                    return;
+                }
+            }
+
+            navigator.clipboard.writeText(contentToCopy).then(() => {
+                alert('內容已複製到剪貼簿！');
+                updateCheckerStatus('已複製內容');
+            }).catch(() => {
+                const textarea = document.createElement('textarea');
+                textarea.value = contentToCopy;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                alert('內容已複製到剪貼簿！');
+                updateCheckerStatus('已複製內容');
+            });
+        }
+
+        function clearCheckerOutput() {
+            if (isPreviewMode) {
+                document.getElementById('checkerInput').value = '';
+                document.getElementById('previewContent').innerHTML = '請輸入文本以查看即時預覽...';
+                
+                // 重置歷史記錄
+                previewHistory = [''];
+                historyIndex = 0;
+                lastSavedSelection = null;
+                
+                updateCheckerStatus('預覽內容已清空');
+            } else {
+                document.getElementById('checkerOutput').textContent = '請輸入文本並選擇檢查項目...';
+                updateCheckerStatus('檢查結果已清空');
+            }
+        }
+
+
+             // Token計數器功能
+                function calculateTokens() {
+                const input = document.getElementById('tokenInput').value;
+                const counter = document.getElementById('tokenCounter');
+
+                if (!input) {
+                    counter.textContent = `Token: 0`;
+                    updateStatus('請輸入文字');
+                    return;
+                }
+
+                    // 基於實際對比調整的係數
+                const chineseChars = (input.match(/[\u4e00-\u9fff]/g) || []).length;
+                const englishWords = (input.match(/[a-zA-Z]+/g) || []).length;
+                const englishChars = (input.match(/[a-zA-Z]+/g) || []).join('').length;
+                const numbers = (input.match(/\d+/g) || []).length;
+                const symbols = (input.match(/[^\w\s\u4e00-\u9fff]/g) || []).length;
+                const spaces = (input.match(/\s+/g) || []).length;
+
+                    
+                    // 調整後的係數
+                    const estimatedTokens = Math.round(
+                        chineseChars * 1 +           // 中文
+                        englishChars * 0.235 +          // 英文
+                        numbers * 0.5 +                // 數字
+                        symbols * 0.3 +                // 符號
+                        spaces * 0.1                 // 空格
+                    );
+
+    
+                    counter.textContent = `Token: ${estimatedTokens}`;
+                    updateStatus(`Token計算完成：${estimatedTokens}`);
+                }
+
+        // 初始化狀態
+        updateGlobalStatus('首頁');
+        updateStatus('等待操作');
+        updateCheckerStatus('等待操作')
+    </script>
+</body>
+</html>
