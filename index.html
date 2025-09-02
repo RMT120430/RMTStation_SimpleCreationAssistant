@@ -665,6 +665,7 @@
                     <br>
                     <strong>⚑ 更新歷程：</strong><br>
                     <ul>
+                    <li>2025/08/23_文本檢查器，新增應用高亮開關按鈕</li>
                     <li>2025/08/20_Git網站正式啟用</li>
                     <li>2025/08/20_新增更多觸發模板，css最終調整</li>
                     <li>2025/08/19_調整分詞器，更趨近真實</li>
@@ -815,6 +816,15 @@
                     </svg>
                     即時預覽
                 </button>
+                <button class="toggle-btn" id="highlightToggle" onclick="toggleHighlight()" style="display: none;">
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                        <circle cx="9" cy="9" r="2"/>
+                        <path d="m21 15-3.086-3.086a2 2 0 0 0-1.414-.586H15"/>
+                        <path d="M7 13h10"/>
+                    </svg>
+                    應用高亮
+                </button> 
                 <button class="template-btn" onclick="checkLength()">
                     <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
@@ -1265,6 +1275,7 @@ function changeWorldBookCount(delta) {
 
         // 即時預覽功能
         let isPreviewMode = false;
+        let isHighlightEnabled = true; // 新增：高亮開關狀態
         let isUpdatingFromPreview = false;
         let previewHistory = []; // 撤銷歷史記錄
         let historyIndex = -1; // 當前歷史索引
@@ -1314,7 +1325,7 @@ function changeWorldBookCount(delta) {
 
         // 處理輸入變化
         function handleInputChange() {
-            if (isPreviewMode & !isUpdatingFromPreview) {
+            if (isPreviewMode && !isUpdatingFromPreview) {
                 updatePreview();
             }
         }
@@ -1499,6 +1510,7 @@ function changeWorldBookCount(delta) {
         function togglePreview() {
             isPreviewMode = !isPreviewMode;
             const toggleBtn = document.getElementById('previewToggle');
+            const highlightBtn = document.getElementById('highlightToggle');
             const previewPanel = document.getElementById('previewPanel');
             const checkerOutput = document.getElementById('checkerOutput');
             
@@ -1506,6 +1518,14 @@ function changeWorldBookCount(delta) {
                 toggleBtn.classList.add('active');
                 previewPanel.classList.add('active');
                 checkerOutput.style.display = 'none';
+                highlightBtn.style.display = 'inline-flex'; // 顯示高亮按鍵
+                
+                // 更新高亮按鍵狀態
+                if (isHighlightEnabled) {
+                    highlightBtn.classList.add('active');
+                } else {
+                    highlightBtn.classList.remove('active');
+                }
                 
                 // 初始化歷史記錄
                 const input = document.getElementById('checkerInput').value;
@@ -1518,6 +1538,7 @@ function changeWorldBookCount(delta) {
                 toggleBtn.classList.remove('active');
                 previewPanel.classList.remove('active');
                 checkerOutput.style.display = 'block';
+                highlightBtn.style.display = 'none'; // 隱藏高亮按鍵
                 
                 // 清理歷史記錄
                 previewHistory = [];
@@ -1528,21 +1549,32 @@ function changeWorldBookCount(delta) {
             }
         }
 
-        // 更新即時預覽（不重置光標）
-        function updatePreviewWithoutCursorReset() {
-            const input = document.getElementById('checkerInput').value;
-            const previewContent = document.getElementById('previewContent');
+        // 新增：切換高亮功能
+        function toggleHighlight() {
+            if (!isPreviewMode) return; // 只在預覽模式下有效
             
-            if (!input.trim()) {
-                previewContent.innerHTML = '請輸入文本以查看即時預覽...';
-                return;
+            isHighlightEnabled = !isHighlightEnabled;
+            const highlightBtn = document.getElementById('highlightToggle');
+            
+            if (isHighlightEnabled) {
+                highlightBtn.classList.add('active');
+                updateCheckerStatus('應用高亮已開啟');
+            } else {
+                highlightBtn.classList.remove('active');
+                updateCheckerStatus('應用高亮已關閉');
             }
+            
+            // 立即更新預覽內容
+            updatePreviewWithoutCursorReset();
+        }
 
-            // 保存當前選擇
-            saveSelection();
-
-            // 應用高亮規則
-            let highlightedText = escapeHtml(input);
+        // 應用高亮規則的函數
+        function applyHighlightRules(text) {
+            if (!isHighlightEnabled) {
+                return escapeHtml(text); // 如果高亮關閉，只進行HTML轉義
+            }
+            
+            let highlightedText = escapeHtml(text);
             
             // 1. 先高亮冒號，使用唯一標記保護
             highlightedText = highlightedText.replace(
@@ -1562,18 +1594,36 @@ function changeWorldBookCount(delta) {
                 '<span class="highlight-colon">:</span>'
             );
 
-            // 3. 高亮 user
+            // 4. 高亮 user
             highlightedText = highlightedText.replace(
                 /(\buser\b)/ig,
                 '<span class="highlight-user">$1</span>'
             );
             
-            // 4. 高亮 char
+            // 5. 高亮 char
             highlightedText = highlightedText.replace(
                 /(\bchar\b)/ig,
                 '<span class="highlight-char">$1</span>'
             );
 
+            return highlightedText;
+        }
+
+        // 更新即時預覽（不重置光標）
+        function updatePreviewWithoutCursorReset() {
+            const input = document.getElementById('checkerInput').value;
+            const previewContent = document.getElementById('previewContent');
+            
+            if (!input.trim()) {
+                previewContent.innerHTML = '請輸入文本以查看即時預覽...';
+                return;
+            }
+
+            // 保存當前選擇
+            saveSelection();
+
+            // 應用高亮規則（根據開關狀態）
+            const highlightedText = applyHighlightRules(input);
             previewContent.innerHTML = highlightedText;
 
             // 恢復選擇
@@ -1590,39 +1640,8 @@ function changeWorldBookCount(delta) {
                 return;
             }
 
-            // 應用高亮規則
-            let highlightedText = escapeHtml(input);
-            
-            // 1. 先高亮冒號，使用唯一標記保護
-            highlightedText = highlightedText.replace(
-                /([^<>]*?)(:)([^<>]*?)/g,
-                '$1{{COLON_PLACEHOLDER}}$3'
-            );
-            
-            // 2. 高亮空白字符
-            highlightedText = highlightedText.replace(
-                /( |\t)/g,
-                '<span class="highlight-whitespace">$1</span>'
-            );
-
-            // 3. 還原冒號高亮
-            highlightedText = highlightedText.replace(
-                /{{COLON_PLACEHOLDER}}/g,
-                '<span class="highlight-colon">:</span>'
-            );
-
-            // 3. 高亮 user
-            highlightedText = highlightedText.replace(
-                /(\buser\b)/ig,
-                '<span class="highlight-user">$1</span>'
-            );
-            
-            // 4. 高亮 char
-            highlightedText = highlightedText.replace(
-                /(\bchar\b)/ig,
-                '<span class="highlight-char">$1</span>'
-            );
-
+            // 應用高亮規則（根據開關狀態）
+            const highlightedText = applyHighlightRules(input);
             previewContent.innerHTML = highlightedText;
         }
 
@@ -1791,6 +1810,4 @@ Tab字符數：${tabs.length}
         updateCheckerStatus('等待操作')
     </script>
 </body>
-
 </html>
-
