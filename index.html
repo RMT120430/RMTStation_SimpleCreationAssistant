@@ -1459,8 +1459,8 @@ function changeWorldBookCount(delta) {
             }
 
             navigator.clipboard.writeText(output).then(() => {
-                alert('已複製到剪貼簿！');
-                updateStatus('已複製到剪貼簿');
+                alert('已複製');
+                updateStatus('已複製');
             }).catch(() => {
                 // 備用方法
                 const textarea = document.createElement('textarea');
@@ -1469,14 +1469,14 @@ function changeWorldBookCount(delta) {
                 textarea.select();
                 document.execCommand('copy');
                 document.body.removeChild(textarea);
-                alert('已複製到剪貼簿！');
-                updateStatus('已複製到剪貼簿');
+                alert('已複製');
+                updateStatus('已複製');
             });
         }
 
         function clearOutput() {
             document.getElementById('output').textContent = '點擊上方按鈕來生成模板...';
-            updateStatus('輸出已清空');
+            updateStatus('已清空');
         }
 
         function saveAsFile() {
@@ -1963,8 +1963,8 @@ Tab字符數：${tabs.length}
             }
 
             navigator.clipboard.writeText(contentToCopy).then(() => {
-                alert('內容已複製到剪貼簿！');
-                updateCheckerStatus('已複製內容');
+                alert('已複製');
+                updateCheckerStatus('已複製');
             }).catch(() => {
                 const textarea = document.createElement('textarea');
                 textarea.value = contentToCopy;
@@ -1972,8 +1972,8 @@ Tab字符數：${tabs.length}
                 textarea.select();
                 document.execCommand('copy');
                 document.body.removeChild(textarea);
-                alert('內容已複製到剪貼簿！');
-                updateCheckerStatus('已複製內容');
+                alert('已複製');
+                updateCheckerStatus('已複製');
             });
         }
 
@@ -1987,10 +1987,10 @@ Tab字符數：${tabs.length}
                 historyIndex = 0;
                 lastSavedSelection = null;
                 
-                updateCheckerStatus('預覽內容已清空');
+                updateCheckerStatus('已清空');
             } else {
                 document.getElementById('checkerOutput').textContent = '請輸入文本並選擇檢查項目...';
-                updateCheckerStatus('檢查結果已清空');
+                updateCheckerStatus('已清空');
             }
         }
 
@@ -2160,7 +2160,7 @@ Tab字符數：${tabs.length}
         function clearAll() {
             document.getElementById('inputText').value = '';
             document.getElementById('outputEditText').value = '';
-            updateTextEditStatus('已清空所有文本');
+            updateTextEditStatus('已清空');
         }
 
         // 複製結果到剪貼板
@@ -2168,13 +2168,13 @@ Tab字符數：${tabs.length}
             const output = document.getElementById('outputEditText');
             
             if (!output.value.trim()) {
-                updateTextEditStatus('沒有可複製的內容！');
+                updateTextEditStatus('沒有可複製的內容');
                 return;
             }
 
             output.select();
             document.execCommand('copy');
-            updateTextEditStatus('已複製到剪貼板！');
+            updateTextEditStatus('已複製');
         }
 
         // 複製結果回輸入區
@@ -2183,12 +2183,12 @@ Tab字符數：${tabs.length}
             const output = document.getElementById('outputEditText');
             
             if (!output.value.trim()) {
-                updateTextEditStatus('沒有可複製的內容！');
+                updateTextEditStatus('沒有可複製的內容');
                 return;
             }
 
             input.value = output.value;
-            updateTextEditStatus('已複製回輸入區，可以繼續處理');
+            updateTextEditStatus('已反向複製回輸入區，可以繼續處理');
         }
 
         // 自動調整文本框高度
