@@ -17,7 +17,7 @@
             background: #56858A;
             min-height: 100vh;
             color: #132234;
-            font-size: 11px;
+            font-size: 12px;
         }
 
         .container {
@@ -45,14 +45,16 @@
             gap: 8px;
         }
 
-        .header h2 {
+       .header h2 {
             font-size: 11px;
-            margin-top: 29px;
-            margin-right: 5px;
-            margin-bottom: 18px;
+            margin-top: 0dvh;
+            padding-top: 2.6dvh;
+            margin-right: 0.5dvh;
+            margin-bottom: 100dvh;
             font-weight: normal;
             display: flex;
             justify-content: flex-end;
+            flex-direction: row;
         }
 
         /* 全域狀態顯示區域 */
@@ -132,7 +134,7 @@
         .panel h2 {
             color: #132234;
             margin-bottom: 8px;
-            font-size: 11px;
+            font-size: 12px;
             font-weight: bold;
             background: #1F3D5D;
             color: #F7E0C3;
@@ -159,7 +161,7 @@
             color: #132234;
             border: 2px outset #F7E0C3;
             padding: 4px 8px;
-            font-size: 11px;
+            font-size: 12px;
             font-family: 'MS Sans Serif', 'Microsoft Sans Serif', sans-serif;
             gap: 4px;
             margin-top: 4px;
@@ -181,7 +183,7 @@
             color: #132234;
             border: 2px outset #F7E0C3;
             padding: 2px 6px;
-            font-size: 11px;
+            font-size: 12px;
             margin: 2px;
             font-family: 'MS Sans Serif', 'Microsoft Sans Serif', sans-serif;
             display: inline-flex;
@@ -207,7 +209,7 @@
             margin-bottom: 2px;
             font-weight: normal;
             color: #132234;
-            font-size: 11px;
+            font-size: 12px;
         }
 
         input, textarea, select {
@@ -216,7 +218,7 @@
             border: 2px inset #E5D0BB;
             background: #E5D0BB;
             color: #132234;
-            font-size: 11px;
+            font-size: 12px;
             font-family: 'MS Sans Serif', 'Microsoft Sans Serif', sans-serif;
         }
 
@@ -237,7 +239,7 @@
             background: #E5D0BB;
             color: #132234;
             font-family: 'Courier New', monospace;
-            font-size: 11px;
+            font-size: 12px;
             line-height: 1.2;
             min-height: 120px;
             padding: 4px;
@@ -262,7 +264,7 @@
             color: #132234;
             border: 2px outset #F7E0C3;
             padding: 4px 8px;
-            font-size: 11px;
+            font-size: 12px;
             font-weight: normal;
             font-family: 'MS Sans Serif', 'Microsoft Sans Serif', sans-serif;
             display: flex;
@@ -291,7 +293,7 @@
             display: flex;
             align-items: center;
             gap: 4px;
-            font-size: 11px;
+            font-size: 12px;
             font-weight: bold;
         }
 
@@ -323,7 +325,7 @@
             border: 2px outset #F7E0C3;
             background: #F7E0C3;
             color: #132234;
-            font-size: 11px;
+            font-size: 12px;
             font-weight: bold;
             font-family: 'MS Sans Serif', 'Microsoft Sans Serif', sans-serif;
         }
@@ -359,7 +361,7 @@
             background: #1F3D5D;
             color: #F7E0C3;
             padding: 2px;
-            font-size: 11px;
+            font-size: 12px;
             font-weight: bold;
             margin: -8px -8px 8px -8px;
             display: flex;
@@ -385,7 +387,7 @@
 
         .keyword-help {
             background: #E5D0BB !important;
-            font-size: 10px;
+            font-size: 11px;
             color: #132234;
             margin-top: 2px;
             line-height: 1.3;
@@ -410,7 +412,7 @@
             color: #132234;
             border: 2px outset #F7E0C3;
             padding: 2px 6px;
-            font-size: 11px;
+            font-size: 12px;
             font-family: 'MS Sans Serif', 'Microsoft Sans Serif', sans-serif;
             display: inline-flex;
             align-items: center;
@@ -460,7 +462,7 @@
             color: #132234;
             border: 2px outset #F7E0C3;
             padding: 4px 8px;
-            font-size: 11px;
+            font-size: 12px;
             font-weight: normal;
             font-family: 'MS Sans Serif', 'Microsoft Sans Serif', sans-serif;
             gap: 4px;
@@ -480,7 +482,7 @@
             border: 2px inset #E5D0BB;
             background: #E5D0BB;
             color: #132234;
-            font-size: 11px;
+            font-size: 12px;
             font-family: 'MS Sans Serif', 'Microsoft Sans Serif', sans-serif;
             min-height: 60px;
             resize: vertical;
@@ -500,7 +502,7 @@
         border: 2px inset #E5D0BB;
         background: #E5D0BB;
         color: #132234;
-        font-size: 11px;
+        font-size: 12px;
         font-family: 'MS Sans Serif', 'Microsoft Sans Serif', sans-serif;
          min-height: 60px;
         resize: vertical;
@@ -575,7 +577,7 @@
             background: #1F3D5D;
             color: #F7E0C3;
             padding: 2px 6px;
-            font-size: 10px;
+            font-size: 12px;
             border-radius: 2px;
             font-weight: bold;
         }
@@ -583,6 +585,85 @@
         .token-input {
             min-height: 120px;
             font-family: 'Courier New', monospace;
+        }
+
+        /* 新增：文本替換器相關樣式 */
+        .char-replace-controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .btn-success {
+            background: #F7E0C3;
+            color: #132234;
+            border: 2px outset #F7E0C3;
+            padding: 4px 8px;
+            font-size: 12px;
+            font-family: 'MS Sans Serif', 'Microsoft Sans Serif', sans-serif;
+            gap: 4px;
+            margin-top: 4px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-success:hover {
+            background: #68AAB2;
+            border-color: #68AAB2;
+        }
+
+        .btn-success:active {
+            border: 2px inset #F7E0C3;
+        }
+
+        .btn-secondary {
+            background: #F7E0C3;
+            color: #132234;
+            border: 2px outset #F7E0C3;
+            padding: 4px 8px;
+            font-size: 12px;
+            font-family: 'MS Sans Serif', 'Microsoft Sans Serif', sans-serif;
+            gap: 4px;
+            margin-top: 4px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-secondary:hover {
+            background: #68AAB2;
+            border-color: #68AAB2;
+        }
+
+        .btn-secondary:active {
+            border: 2px inset #F7E0C3;
+        }
+
+        .btn-primary {
+            background: #F7E0C3;
+            color: #132234;
+            border: 2px outset #F7E0C3;
+            padding: 4px 8px;
+            font-size: 12px;
+            font-family: 'MS Sans Serif', 'Microsoft Sans Serif', sans-serif;
+            gap: 4px;
+            margin-top: 4px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-primary:hover {
+            background: #68AAB2;
+            border-color: #68AAB2;
+        }
+
+        .btn-primary:active {
+            border: 2px inset #F7E0C3;
+        }
+
+        .input-textarea {
+            min-height: 100px;
+            font-family: 'MS Sans Serif', 'Microsoft Sans Serif', sans-serif;
         }
 
     </style>
@@ -594,14 +675,14 @@
                 🚂RMT Station▪️Simple Creation Assistant
             </h1>
             <h2>
-                🚂RMT 車站▪️簡易創作助手_v1 20250820
+                🚂RMT 車站▪️簡易創作助手_v1.2 20250912
             </h2>
         </div>
-
         <!-- 全域狀態顯示區域 -->
         <div class="global-status" id="globalStatus">
                 當前頁面：首頁
         </div>
+
 
         <!-- 頁面導覽器 -->
         <div class="navigation">
@@ -618,6 +699,12 @@
                     <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
                 </svg>
                 世界書觸發模板
+            </button>
+            <button class="nav-btn" onclick="navigateToPage('textreplace')">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/>
+                </svg>
+                指令改咒器
             </button>
             <button class="nav-btn" onclick="navigateToPage('checker')">
                 <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -652,9 +739,9 @@
                     <strong>▼ 功能介紹：</strong><br>
                     <ul>
                         <li>世界書觸發模板：提供快速生成Regex觸發的關鍵字</li>
+                        <li>指令改咒器：快速編輯輸入的文本，方便修改OOC指令與咒語</li>
                         <li>文本檢查器：檢查輸入的各種要素，附帶即時預覽模式，可同時修改檢查文本</li>
                         <li>Token計數器：即時計算輸入文本的Tokens字符，僅供參考</li>
-                
                     <br>
                     </ul>
                     <strong>✎ 使用說明：</strong><br>
@@ -665,6 +752,8 @@
                     <br>
                     <strong>⚑ 更新歷程：</strong><br>
                     <ul>
+                    <li>2025/09/12_輸出區統一格式，部分新增儲存為檔案功能</li>
+                    <li>2025/09/11_新增指令改咒器</li>
                     <li>2025/08/23_文本檢查器，新增應用高亮開關按鈕</li>
                     <li>2025/08/20_Git網站正式啟用</li>
                     <li>2025/08/20_新增更多觸發模板，css最終調整</li>
@@ -769,14 +858,14 @@
                             <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
                             <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
                         </svg>
-                        複製到剪貼簿
+                        複製
                     </button>
                     <button class="action-btn" onclick="clearOutput()">
                         <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <polyline points="3,6 5,6 21,6"/>
                             <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
                         </svg>
-                        清空輸出
+                        清空
                     </button>
                     <button class="action-btn" onclick="saveAsFile()">
                         <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -884,14 +973,22 @@
                         <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
                         <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
                     </svg>
-                    複製結果
+                    複製
                 </button>
                 <button class="action-btn" onclick="clearCheckerOutput()">
                     <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <polyline points="3,6 5,6 21,6"/>
                         <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
                     </svg>
-                    清空結果
+                    清空
+                </button>
+                <button class="action-btn" onclick="saveCheckerFile()">
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+                    <polyline points="17,21 17,13 7,13 7,21"/>
+                    <polyline points="7,3 7,8 15,8"/>
+                    </svg>
+                    儲存為檔案
                 </button>
             </div>
             <div class="status-bar">
@@ -927,6 +1024,125 @@
                 </div>
             </div>
         </div>
+
+        <!-- 指令改咒器頁面 -->
+         <div id="textreplace-page" class="page">
+            
+            <!-- 輸入區域 -->
+            <div class="panel">
+                <div class="window-title">
+                    <svg class="panel-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/>
+                    </svg>
+                    輸入文本
+                </div>
+
+                <div class="keyword-help" style="margin-top: 8px; padding: 4px; background: rgba(246, 200, 184, 0.1); border-radius: 2px;">
+                    <strong>功能說明：</strong><br>
+                    • {{char}} ↔ {{user}} 交換：將文本中的 {{char}} 和 {{user}} 互相替換<br>
+                    • 插入預設指令：在文本開頭插入預設的 OOC 指令<br>
+                </div>
+
+                <div class="input-section">
+                    <label class="input-label">請輸入要處理的文本：</label>
+                    <textarea 
+                        id="inputText" 
+                        class="input-textarea" 
+                        placeholder="在此輸入包含 {{char}} 和 {{user}} 的文本..."
+                    ></textarea>
+                </div>
+                <select id="oocSelect">
+                    <option value="option1">[OOC: 請立刻暫停劇情，並開始演繹一段新劇情和情境]</option>
+                    <option value="option2">[OOC: 請開始演繹以下劇情: </option>
+                    <option value="option3">{{char}}會有什麼反應？{{char}}內心會產生什麼想法？，{{char}}又會做出什麼行動？]</option>
+                    <option value="option4">{{user}}會有什麼反應？{{user}}內心會產生什麼想法？，{{user}}又會做出什麼行動？]</option>
+                    <option value="option5">[OOC: 請參考{{char}}和{{user}}的設定與補充資訊，以生動詳細的劇情方式描寫整個過程]</option>
+                </select>
+                <div class="controls-row">
+                    <button class="btn btn-primary" onclick="swapCharUser()">
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="17,1 21,5 17,9"/>
+                            <path d="M3 11V9a4 4 0 0 1 4-4h14"/>
+                            <polyline points="7,23 3,19 7,15"/>
+                            <path d="M21 13v2a4 4 0 0 1-4 4H3"/>
+                        </svg>
+                        {{char}} ↔ {{user}} 交換
+                    </button>
+
+                    <button class="btn btn-secondary" onclick="insertOOC()">
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 20h9"/>
+                            <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+                        </svg>
+                        按此確認插入
+                    </button>
+
+                    <button class="btn btn-secondary" onclick="insertEndBracket()">
+                    ]
+                    </button>
+                </div>
+            </div>
+
+            <!-- 輸出區域 -->
+             
+            <div class="panel">
+                <div class="window-title">
+                    <svg class="panel-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14,2 14,8 20,8"/>
+                        <line x1="16" y1="13" x2="8" y2="13"/>
+                        <line x1="16" y1="17" x2="8" y2="17"/>
+                        <polyline points="10,9 9,9 8,9"/>
+                    </svg>
+                    輸出結果
+                </div>
+
+                <div class="input-section">
+                    <textarea 
+                        id="outputEditText" 
+                        class="input-textarea output-textarea" 
+                        readonly
+                        placeholder="處理結果將顯示在這裡..."
+                    ></textarea>
+                </div>
+
+                <div class="action-btns">
+                    <button class="btn btn-success" onclick="copyText()">
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                        </svg>
+                        複製
+                    </button>
+                    <button class="btn btn-primary" onclick="copyBackToInput()">
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="17,1 21,5 17,9"/>
+                            <path d="M3 11V9a4 4 0 0 1 4-4h14"/>
+                        </svg>
+                        反向複製
+                    </button>
+                    <button class="btn btn-success" onclick="clearAll()">
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="3,6 5,6 21,6"/>
+                            <path d="m19,6v14a2,2 0 0,1 -2,2H7a2,2 0 0,1 -2,-2V6m3,0V4a2,2 0 0,1 2,-2h4a2,2 0 0,1 2,2v2"/>
+                        </svg>
+                        清空
+                    </button>
+                    <button class="action-btn" onclick="saveTextEditFile()">
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+                            <polyline points="17,21 17,13 7,13 7,21"/>
+                            <polyline points="7,3 7,8 15,8"/>
+                        </svg>
+                        儲存為檔案
+                    </button>
+                </div>
+                    <div class="status-bar">
+                    <span>就緒</span>
+                    <span id="editStatusStatusText">等待操作</span>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -950,6 +1166,14 @@
         // 新增：更新檢查器狀態的函數
         function updateCheckerStatus(text) {
             const statusElement = document.getElementById('checkerStatusText');
+            if (statusElement) {
+                statusElement.textContent = text;
+            }
+        }
+
+        // 新增：更新編輯器狀態的函數
+        function updateTextEditStatus(text) {
+            const statusElement = document.getElementById('editStatusStatusText');
             if (statusElement) {
                 statusElement.textContent = text;
             }
@@ -982,7 +1206,8 @@
                 'home': '首頁',
                 'worldbook': '世界書觸發模板',
                 'checker': '文本檢查器',
-                'token': 'Token計數器'
+                'token': 'Token計數器',
+                'textreplace': '指令改咒器'
             };
             
             const pageName = pageNames[page] || '未知頁面';
@@ -1265,7 +1490,7 @@ function changeWorldBookCount(delta) {
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'worldbook_template.txt';
+            a.download = '世界書Regex觸發Key.txt';
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
@@ -1769,6 +1994,23 @@ Tab字符數：${tabs.length}
             }
         }
 
+        function saveCheckerFile() {
+            const output = document.getElementById('previewContent').textContent;
+            if (!output.trim() || output.includes('請先輸入文本')) {
+                alert('沒有內容可以儲存');
+                return;
+            }
+            const blob = new Blob([output], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = '檢查後的文本.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            updateStatus('檔案已儲存');
+        }
 
              // Token計數器功能
                 function calculateTokens() {
@@ -1807,7 +2049,182 @@ Tab字符數：${tabs.length}
         // 初始化狀態
         updateGlobalStatus('首頁');
         updateStatus('等待操作');
-        updateCheckerStatus('等待操作')
+        updateCheckerStatus('等待操作');
+        updateTextEditStatus('等待操作')
+        // {{char}} 和 {{user}} 交換功能
+        function swapCharUser() {
+            const input = document.getElementById('inputText');
+            const output = document.getElementById('outputEditText');
+            const text = input.value;
+
+            if (!text.trim()) {
+                updateTextEditStatus('請先輸入文本！');
+                return;
+            }
+
+            // 使用臨時標記來避免重複替換
+            let result = text
+                .replace(/\{\{char\}\}/g, '__TEMP_CHAR__')
+                .replace(/\{\{user\}\}/g, '{{char}}')
+                .replace(/__TEMP_CHAR__/g, '{{user}}');
+
+            output.value = result;
+
+            // 統計替換數量
+            const charCount = (text.match(/\{\{char\}\}/g) || []).length;
+            const userCount = (text.match(/\{\{user\}\}/g) || []).length;
+            const totalSwaps = charCount + userCount;
+
+            if (totalSwaps > 0) {
+                updateTextEditStatus(`成功交換 ${totalSwaps} 個標籤 ({{char}}: ${charCount}個, {{user}}: ${userCount}個)`, 'success');
+            } else {
+                updateTextEditStatus('文本中沒有找到 {{char}} 或 {{user}} 標籤');
+            }
+        }
+
+        // 插入 OOC 指令 (下拉式選單)
+        function insertOOC() {
+            const select = document.getElementById('oocSelect');
+            const input = document.getElementById('inputText');
+            const output = document.getElementById('outputEditText');
+            const selectedValue = select.value;
+            
+            if (!selectedValue) {
+                updateTextEditStatus('請選擇一個 OOC 指令選項', 'error');
+                return;
+            }
+            
+            const oocCommands = {
+                'option1': '[OOC: 請立刻暫停劇情，並開始演繹一段新劇情和情境]',
+                'option2': '[OOC: 請開始演繹以下劇情: ',
+                'option3': '{{char}}會有什麼反應？{{char}}內心會產生什麼想法？，{{char}}又會做出什麼行動？]',
+                'option4': '{{user}}會有什麼反應？{{user}}內心會產生什麼想法？，{{user}}又會做出什麼行動？]',
+                'option5': '[OOC: 請參考{{char}}和{{user}}的設定與補充資訊，以生動詳細的劇情方式描寫整個過程]'
+            };
+            
+            const oocCommand = oocCommands[selectedValue];
+            const inputText = input.value;
+            const currentOutput = output.value;
+            
+            let result;
+            if (currentOutput.trim()) {
+                // 如果輸出區域已有內容，在開頭插入
+                result = oocCommand + '\n' + currentOutput;
+            } else if (inputText.trim()) {
+                // 如果輸出區域為空但輸入區域有內容
+                result = oocCommand + '\n' + inputText;
+            } else {
+                // 兩者都為空
+                result = oocCommand;
+            }
+
+            output.value = result;
+            updateTextEditStatus(`已插入 ${getOOCName(selectedValue)}`, 'success');
+        }
+
+        function getOOCName(option) {
+            const names = {
+                'option1': 'OOC 指令 1 (暫停劇情)',
+                'option2': 'OOC 指令 2 (開始演繹)',  
+                'option3': 'OOC 指令 3 ({{char}}反應)',
+                'option4': 'OOC 指令 4 ({{user}}反應)',
+                'option5': 'OOC 指令 5 (生動描述)'
+            };
+            return names[option] || 'OOC 指令';
+        }
+
+        // 插入結束符號 ]
+        function insertEndBracket() {
+            const input = document.getElementById('inputText');
+            const output = document.getElementById('outputEditText');
+            const inputText = input.value;
+            const currentOutput = output.value;
+
+            let result;
+            if (currentOutput.trim()) {
+                // 如果輸出區域已有內容，在結尾插入
+                result = currentOutput + ']';
+            } else if (inputText.trim()) {
+                // 如果輸出區域為空但輸入區域有內容
+                result = inputText + ']';
+            } else {
+                // 兩者都為空
+                result = ']';
+            }
+
+            output.value = result;
+            updateTextEditStatus('已在文本結尾插入結束符號 ]');
+        }
+
+        // 清空所有文本
+        function clearAll() {
+            document.getElementById('inputText').value = '';
+            document.getElementById('outputEditText').value = '';
+            updateTextEditStatus('已清空所有文本');
+        }
+
+        // 複製結果到剪貼板
+        function copyText() {
+            const output = document.getElementById('outputEditText');
+            
+            if (!output.value.trim()) {
+                updateTextEditStatus('沒有可複製的內容！');
+                return;
+            }
+
+            output.select();
+            document.execCommand('copy');
+            updateTextEditStatus('已複製到剪貼板！');
+        }
+
+        // 複製結果回輸入區
+        function copyBackToInput() {
+            const input = document.getElementById('inputText');
+            const output = document.getElementById('outputEditText');
+            
+            if (!output.value.trim()) {
+                updateTextEditStatus('沒有可複製的內容！');
+                return;
+            }
+
+            input.value = output.value;
+            updateTextEditStatus('已複製回輸入區，可以繼續處理');
+        }
+
+        // 自動調整文本框高度
+        function autoResize() {
+            const textareas = document.querySelectorAll('.input-textarea');
+            textareas.forEach(textarea => {
+                textarea.addEventListener('input', function() {
+                    this.style.height = 'auto';
+                    this.style.height = Math.max(150, this.scrollHeight) + 'px';
+                });
+            });
+        }
+
+        function saveTextEditFile() {
+            const output = document.getElementById('outputEditText').value;
+            if (!output.trim() || output.includes('請先輸入文本')) {
+                alert('沒有內容可以儲存');
+                return;
+            }
+            const blob = new Blob([output], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = '編輯後的指令文本.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            updateTextEditStatus('檔案已儲存');
+        }
+
+        // 頁面載入完成後初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            autoResize();
+            updateTextEditStatus('等待操作');
+        });
     </script>
 </body>
 </html>
